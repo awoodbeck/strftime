@@ -77,6 +77,7 @@ var (
 		{time: &t1, format: "bar%", expected: "bar%"},
 		{time: &t1, format: "%1", expected: "%1"},
 		{time: nil, format: "%Y", expected: now.Format("2006")},
+		{time: &t1, format: "%Y-%m-%dtest\n\t%Z", expected: "2018-07-09test\n\tUTC"},
 	}
 )
 

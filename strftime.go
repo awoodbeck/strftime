@@ -8,6 +8,7 @@ import (
 	"strings"
 	"text/scanner"
 	"time"
+	"unicode"
 )
 
 const delim = "%"
@@ -30,29 +31,22 @@ func Format(t *time.Time, f string) string {
 	}
 
 	s.Init(strings.NewReader(f))
+	s.IsIdentRune = func(ch rune, i int) bool {
+		return (ch == '%' && i <= 1) || (unicode.IsLetter(ch) && i == 1)
+	}
 
-	// Honor whitespace characters.
+	// Honor all white space characters.
 	s.Whitespace = 0
-
-	// Scan individual characters.
-	s.Mode = scanner.ScanChars
 
 	for tok := s.Scan(); tok != scanner.EOF; tok = s.Scan() {
 		txt := s.TokenText()
-		if txt != delim {
+		if len(txt) < 2 || !strings.HasPrefix(txt, delim) {
 			buf.WriteString(txt)
 
 			continue
 		}
 
-		tok = s.Scan()
-		if tok == scanner.EOF {
-			buf.WriteString(delim)
-
-			break
-		}
-
-		buf.WriteString(formats.Apply(*t, s.TokenText()))
+		buf.WriteString(formats.Apply(*t, txt[1:]))
 	}
 
 	return buf.String()
