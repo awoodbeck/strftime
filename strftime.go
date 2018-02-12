@@ -11,8 +11,6 @@ import (
 	"unicode"
 )
 
-const delim = "%"
-
 // Format accepts a Time pointer and a C99-compatible strftime format string
 // and returns the formatted result.  If the Time pointer is nil, the current
 // time is used.
@@ -40,7 +38,7 @@ func Format(t *time.Time, f string) string {
 
 	for tok := s.Scan(); tok != scanner.EOF; tok = s.Scan() {
 		txt := s.TokenText()
-		if len(txt) < 2 || !strings.HasPrefix(txt, delim) {
+		if len(txt) < 2 || !strings.HasPrefix(txt, "%") {
 			buf.WriteString(txt)
 
 			continue
@@ -64,7 +62,7 @@ type formatMap map[string]func(time.Time) string
 func (f formatMap) Apply(t time.Time, txt string) string {
 	fc, ok := f[txt]
 	if !ok {
-		return fmt.Sprintf("%s%s", delim, txt)
+		return fmt.Sprintf("%%%s", txt)
 	}
 
 	return fc(t)
@@ -126,11 +124,11 @@ var formats = formatMap{
 	// "W": func(t time.Time) string {
 	// TODO
 	// },
-	"x":   func(t time.Time) string { return t.Format("01/02/2006") },
-	"X":   func(t time.Time) string { return t.Format("15:04:05") },
-	"y":   func(t time.Time) string { return t.Format("06") },
-	"Y":   func(t time.Time) string { return t.Format("2006") },
-	"z":   func(t time.Time) string { return t.Format("-0700") },
-	"Z":   func(t time.Time) string { return t.Format("MST") },
-	delim: func(t time.Time) string { return delim },
+	"x": func(t time.Time) string { return t.Format("01/02/2006") },
+	"X": func(t time.Time) string { return t.Format("15:04:05") },
+	"y": func(t time.Time) string { return t.Format("06") },
+	"Y": func(t time.Time) string { return t.Format("2006") },
+	"z": func(t time.Time) string { return t.Format("-0700") },
+	"Z": func(t time.Time) string { return t.Format("MST") },
+	"%": func(t time.Time) string { return "%" },
 }
