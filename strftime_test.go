@@ -20,6 +20,7 @@ var (
 	}{
 		{time: &t1, format: "%", expected: "%"},
 		{time: &t1, format: "%%", expected: "%"},
+		{time: &t1, format: "%Q", expected: "%Q"},
 		{time: &t1, format: "%%n", expected: "%n"},
 		{time: &t1, format: "%%t", expected: "%t"},
 		{time: &t1, format: "%n%t", expected: "\n\t"},
