@@ -136,7 +136,7 @@ var formats = formatMap{
 	"X":   func(t time.Time) string { return t.Format("15:04:05") },
 	"y":   func(t time.Time) string { return t.Format("06") },
 	"Y":   func(t time.Time) string { return t.Format("2006") },
-	"z":   func(t time.Time) string { return t.Format("-7000") },
+	"z":   func(t time.Time) string { return t.Format("-0700") },
 	"Z":   func(t time.Time) string { return t.Format("MST") },
 	delim: func(t time.Time) string { return delim },
 }

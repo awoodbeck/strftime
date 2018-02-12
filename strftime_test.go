@@ -71,7 +71,7 @@ var (
 		{time: &t2, format: "%X", expected: "04:45:59"},
 		{time: &t1, format: "%y", expected: "18"},
 		{time: &t1, format: "%Y", expected: "2018"},
-		{time: &t1, format: "%z", expected: "-7000"},
+		{time: &t1, format: "%z", expected: "+0000"},
 		{time: &t1, format: "%Z", expected: "UTC"},
 		{time: &t1, format: "foo", expected: "foo"},
 		{time: &t1, format: "bar%", expected: "bar%"},
