@@ -95,14 +95,14 @@ func ExampleFormat() {
 	t := time.Date(2018, time.July, 9, 13, 14, 15, 0, time.UTC)
 
 	fmt.Println(Format(&t, "%c"))
-	fmt.Println(Format(&t, "%%Y-%%m-%%d == %Y-%m-%d"))
+	fmt.Println(Format(&t, "%%Y-%%m-%%d -> %Y-%m-%d"))
 	fmt.Println(Format(&t, "%A is day number %w of the week."))
 	fmt.Println(Format(&t, "Last century was%n the %Cth century."))
 	fmt.Println(Format(&t, "Time zone: %Z"))
 
 	// Output:
 	// Mon Jul  9 13:14:15 2018
-	// %Y-%m-%d == 2018-07-09
+	// %Y-%m-%d -> 2018-07-09
 	// Monday is day number 1 of the week.
 	// Last century was
 	//  the 20th century.
